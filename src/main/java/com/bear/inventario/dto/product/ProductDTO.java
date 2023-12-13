@@ -20,4 +20,5 @@ public class ProductDTO {
 
     @Schema(description = "Cantidad disponible del producto", example = "50")
     private int cantidad;
+
 }
