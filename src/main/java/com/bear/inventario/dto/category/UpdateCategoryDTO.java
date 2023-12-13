@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class UpdateCategoryDTO {
 
-    @Schema(description = "Nombre de la categoria", example = "Computadora")
-    @NotBlank
-    private String nombre;
+  @Schema(description = "Nombre de la categoria", example = "Computadora")
+  @NotBlank
+  private String nombre;
 }
