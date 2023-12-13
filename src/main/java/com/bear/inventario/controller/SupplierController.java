@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 
 @Tag(name = "Endpoints de Proveedores", description = "CRUD de Invenario de Productos Electronicos")
 @RestController
-@RequestMapping("suppliers")
+@RequestMapping("api/v1/suppliers")
 public class SupplierController {
 
     @Autowired

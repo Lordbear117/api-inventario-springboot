@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @Tag(name = "Endpoints de Productos", description = "CRUD de Invenario de Productos Electronicos")
 @RestController
-@RequestMapping("products")
+@RequestMapping("api/v1/products")
 public class ProductController {
 
     @Autowired
