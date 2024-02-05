@@ -22,22 +22,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/suppliers")
 public class SupplierController {
 
-  @Autowired private SupplierService service;
+  private final SupplierService supplierService;
+  private final SupplierProductService supplierProductService;
 
-  @Autowired private SupplierProductService supplierProductService;
+  @Autowired
+  public SupplierController(SupplierService supplierService, SupplierProductService supplierProductService) {
+    this.supplierService = supplierService;
+    this.supplierProductService = supplierProductService;
+  }
 
   @Operation(summary = "Obtiene la lista de todos los proveedores")
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<SupplierDTO> findAll() {
-    return service.findAll();
+    return supplierService.findAll();
   }
 
   @Operation(summary = "Crea un nuevo proveedor")
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public SupplierDTO save(@Valid @RequestBody CreateSupplierDTO data) {
-    return service.save(data);
+    return supplierService.save(data);
   }
 
   @Operation(summary = "Actualiza la información de un proveedor")
@@ -46,7 +51,7 @@ public class SupplierController {
   public void update(@PathVariable long supplierId,
                      @Valid @RequestBody UpdateSupplierDTO data)
       throws SupplierNotFoundException {
-    service.update(supplierId, data);
+    supplierService.update(supplierId, data);
   }
 
   @Operation(summary = "Borra la información de un proveedor")
@@ -54,7 +59,7 @@ public class SupplierController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void delete(@PathVariable long supplierId)
       throws SupplierNotFoundException {
-    service.delete(supplierId);
+    supplierService.delete(supplierId);
   }
 
   @Operation(summary = "Asocia un producto a un proveedor")
