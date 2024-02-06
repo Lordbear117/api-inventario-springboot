@@ -118,7 +118,7 @@ public class ProductControllerTest {
 
         // Assert
         // verify that productService.update was called with valid args
-        verify(service).update(eq(productId), eq(updateData));
+        verify(service).update(productId, updateData);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ProductControllerTest {
         // Arrange
         long productId = 2L;
         UpdateProductDTO updateData = new UpdateProductDTO();
-        doThrow(new ProductNotFoundException(productId)).when(service).update(eq(productId), eq(updateData));
+        doThrow(new ProductNotFoundException(productId)).when(service).update(productId, updateData);
 
         // Act & Assert
         assertThrows(ProductNotFoundException.class, () -> {
@@ -140,7 +140,7 @@ public class ProductControllerTest {
     public void deleteProductTest() throws ProductNotFoundException {
         // Arrange
         long productId = 2L;
-        doNothing().when(service).delete(eq(productId));
+        doNothing().when(service).delete(productId);
 
         // Act & Assert
         assertDoesNotThrow(() -> {
@@ -148,7 +148,7 @@ public class ProductControllerTest {
         });
 
         // Verify that the delete method was called with the specified productId
-        verify(service, times(1)).delete(eq(productId));
+        verify(service, times(1)).delete(productId);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class ProductControllerTest {
     public void deleteProductNotFoundExceptionTest() throws ProductNotFoundException {
         // Arrange
         long productId = 2L;
-        doThrow(new ProductNotFoundException(productId)).when(service).delete(eq(productId));
+        doThrow(new ProductNotFoundException(productId)).when(service).delete(productId);
 
         // Act & Assert
         assertThrows(ProductNotFoundException.class, () -> {
@@ -164,7 +164,7 @@ public class ProductControllerTest {
         });
 
         // Verify that the delete method was called with the specified productId
-        verify(service, times(1)).delete(eq(productId));
+        verify(service, times(1)).delete(productId);
     }
 
 }
