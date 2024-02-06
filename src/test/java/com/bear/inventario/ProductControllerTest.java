@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -30,6 +31,12 @@ public class ProductControllerTest {
 
     @InjectMocks
     private ProductController controller;
+
+    @Autowired
+    public ProductControllerTest (ProductService service,ProductController controller) {
+        this.service = service;
+        this.controller = controller;
+    }
 
     @Test
     @DisplayName("Controller Product should be injected")
