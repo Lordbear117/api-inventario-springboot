@@ -19,7 +19,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/categories")
 public class CategoryController {
 
-  @Autowired private CategoryService service;
+  private final CategoryService service;
+
+  @Autowired
+  public CategoryController (CategoryService service) {
+    this.service = service;
+  }
 
   @Operation(summary = "Obtiene la lista de todas las categorias")
   @GetMapping

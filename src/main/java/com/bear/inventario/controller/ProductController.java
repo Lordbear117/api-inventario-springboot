@@ -19,7 +19,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/products")
 public class ProductController {
 
-  @Autowired private ProductService service;
+   private final ProductService service;
+
+  @Autowired
+  public ProductController (ProductService service) {
+    this.service = service;
+  }
 
   @Operation(summary = "Obtiene la lista de todos los productos")
   @GetMapping
