@@ -42,7 +42,7 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
-
+	useTestNG()
 	finalizedBy jacocoTestReport
 }
 
@@ -75,8 +75,6 @@ jacocoTestReport {
 }
 
 test {
-	useTestNG()
-
 	jacoco{
 		excludes = [
 				'com.bear.inventario.dto.*',
