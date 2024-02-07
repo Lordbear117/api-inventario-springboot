@@ -2,13 +2,10 @@ package com.bear.inventario;
 
 import com.bear.inventario.controller.SupplierController;
 import com.bear.inventario.dto.product.AddProductDTO;
-import com.bear.inventario.dto.product.CreateProductDTO;
 import com.bear.inventario.dto.product.ProductDTO;
-import com.bear.inventario.dto.product.UpdateProductDTO;
 import com.bear.inventario.dto.supplier.CreateSupplierDTO;
 import com.bear.inventario.dto.supplier.SupplierDTO;
 import com.bear.inventario.dto.supplier.UpdateSupplierDTO;
-import com.bear.inventario.exception.ProductNotFoundException;
 import com.bear.inventario.exception.SupplierNotFoundException;
 import com.bear.inventario.service.SupplierProductService;
 import com.bear.inventario.service.SupplierService;
@@ -30,7 +27,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class SupplierControllerTest {
+class SupplierControllerTest {
 
     @MockBean
     private SupplierService supplierService;
@@ -51,13 +48,13 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller Supplier should be injected")
-    public void smokeTest(){
+    void smokeTest(){
         assertNotNull(controller);
     }
 
     @Test
     @DisplayName("Controller should return a list of supplier")
-    public void findAllSuppliersTest(){
+    void findAllSuppliersTest(){
         // Arrange
         List<SupplierDTO> fakeData = new LinkedList<>();
 
@@ -83,7 +80,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller should save a supplier")
-    public void saveSupplierTest(){
+    void saveSupplierTest(){
         // Arrange
         CreateSupplierDTO dto = new CreateSupplierDTO();
 
@@ -112,7 +109,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller should update a supplier")
-    public void updateSupplierTest() throws SupplierNotFoundException {
+    void updateSupplierTest() throws SupplierNotFoundException {
         // Arrange
         long supplierId = 1L;
         UpdateSupplierDTO updateData = new UpdateSupplierDTO();
@@ -131,7 +128,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller exception should work if supplier is not found")
-    public void updateSupplierNotFoundExceptionTest() throws SupplierNotFoundException {
+    void updateSupplierNotFoundExceptionTest() throws SupplierNotFoundException {
         // Arrange
         long supplierId = 2L;
         UpdateSupplierDTO updateData = new UpdateSupplierDTO();
@@ -145,7 +142,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller should handle supplier deletion")
-    public void deleteSupplierTest() throws SupplierNotFoundException {
+    void deleteSupplierTest() throws SupplierNotFoundException {
         // Arrange
         long supplierId = 2L;
         doNothing().when(supplierService).delete(supplierId);
@@ -161,7 +158,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller exception should work if a supplier is not found during deletion")
-    public void deleteSupplierNotFoundExceptionTest() throws SupplierNotFoundException {
+    void deleteSupplierNotFoundExceptionTest() throws SupplierNotFoundException {
         // Arrange
         long supplierId = 2L;
         doThrow(new SupplierNotFoundException(supplierId)).when(supplierService).delete(supplierId);
@@ -177,7 +174,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller should handle adding product to supplier")
-    public void addProductToSupplierTest() {
+    void addProductToSupplierTest() {
         // Arrange
         long supplierId = 1L;
         AddProductDTO addProductDTO = new AddProductDTO();
@@ -195,7 +192,7 @@ public class SupplierControllerTest {
 
     @Test
     @DisplayName("Controller should return products for a given supplier")
-    public void findProductsBySupplierTest() {
+    void findProductsBySupplierTest() {
         // Arrange
         long supplierId = 1L;
         List<ProductDTO> fakeProducts = new LinkedList<>();

@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class ProductControllerTest {
+class ProductControllerTest {
 
     @MockBean
     private ProductService service;
@@ -40,13 +40,13 @@ public class ProductControllerTest {
 
     @Test
     @DisplayName("Controller Product should be injected")
-    public void smokeTest(){
+    void smokeTest(){
         assertNotNull(controller);
     }
 
     @Test
     @DisplayName("Controller should return a list of products")
-    public void findAllProductsTest(){
+    void findAllProductsTest(){
         // Arrange o precondicion
         List<ProductDTO> fakeData = new LinkedList<>();
 
@@ -73,7 +73,7 @@ public class ProductControllerTest {
 
     @Test
     @DisplayName("Controller should save a product")
-    public void saveProductTest(){
+    void saveProductTest(){
         // Arrange
         CreateProductDTO dto = new CreateProductDTO();
 
@@ -103,7 +103,7 @@ public class ProductControllerTest {
 
     @Test
     @DisplayName("Controller should update a product")
-    public void updateProductTest() throws ProductNotFoundException {
+    void updateProductTest() throws ProductNotFoundException {
         // Arrange
         long productId = 1L;
         UpdateProductDTO updateData = new UpdateProductDTO();
@@ -123,7 +123,7 @@ public class ProductControllerTest {
 
     @Test
     @DisplayName("Controller exception should work if product is not found")
-    public void updateProductNotFoundExceptionTest() throws ProductNotFoundException {
+    void updateProductNotFoundExceptionTest() throws ProductNotFoundException {
         // Arrange
         long productId = 2L;
         UpdateProductDTO updateData = new UpdateProductDTO();
@@ -137,7 +137,7 @@ public class ProductControllerTest {
 
     @Test
     @DisplayName("Controller should handle product deletion")
-    public void deleteProductTest() throws ProductNotFoundException {
+    void deleteProductTest() throws ProductNotFoundException {
         // Arrange
         long productId = 2L;
         doNothing().when(service).delete(productId);
@@ -153,7 +153,7 @@ public class ProductControllerTest {
 
     @Test
     @DisplayName("Controller exception should work if product is not found during deletion")
-    public void deleteProductNotFoundExceptionTest() throws ProductNotFoundException {
+    void deleteProductNotFoundExceptionTest() throws ProductNotFoundException {
         // Arrange
         long productId = 2L;
         doThrow(new ProductNotFoundException(productId)).when(service).delete(productId);

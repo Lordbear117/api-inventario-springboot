@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class CategoryControllerTest {
+class CategoryControllerTest {
 
     @MockBean
     private CategoryService service;
@@ -40,13 +40,13 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Controller Category should be injected")
-    public void smokeTest(){
+    void smokeTest(){
         assertNotNull(controller);
     }
 
     @Test
     @DisplayName("Controller should return a list of categories")
-    public void findAllCategoriesTest(){
+    void findAllCategoriesTest(){
         // Arrange o precondicion
         List<CategoryDTO> fakeData = new LinkedList<>();
 
@@ -69,7 +69,7 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Controller should save a category")
-    public void saveCategoryTest(){
+    void saveCategoryTest(){
         // Arrange
         CreateCategoryDTO dto = new CreateCategoryDTO();
 
@@ -92,7 +92,7 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Controller should update a category")
-    public void updateCategoryTest() throws CategoryNotFoundException {
+    void updateCategoryTest() throws CategoryNotFoundException {
         // Arrange
         long categoryId = 1L;
         UpdateCategoryDTO updateData = new UpdateCategoryDTO();
@@ -109,7 +109,7 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Controller exception should work if a category is not found")
-    public void updateCategoryNotFoundExceptionTest() throws CategoryNotFoundException {
+    void updateCategoryNotFoundExceptionTest() throws CategoryNotFoundException {
         // Arrange
         long categoryId = 2L;
         UpdateCategoryDTO updateData = new UpdateCategoryDTO();
@@ -123,7 +123,7 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Controller should handle category deletion")
-    public void deleteCategoryTest() throws CategoryNotFoundException {
+    void deleteCategoryTest() throws CategoryNotFoundException {
         // Arrange
         long categoryId = 2L;
         doNothing().when(service).delete(categoryId);
@@ -139,7 +139,7 @@ public class CategoryControllerTest {
 
     @Test
     @DisplayName("Controller exception should work if a category is not found during deletion")
-    public void deleteCategoryNotFoundExceptionTest() throws CategoryNotFoundException {
+    void deleteCategoryNotFoundExceptionTest() throws CategoryNotFoundException {
         // Arrange
         long categoryId = 2L;
         doThrow(new CategoryNotFoundException(categoryId)).when(service).delete(categoryId);
