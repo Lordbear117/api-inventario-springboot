@@ -75,6 +75,8 @@ jacocoTestReport {
 }
 
 test {
+	useTestNG()
+
 	jacoco{
 		excludes = [
 				'com.bear.inventario.dto.*',
@@ -83,4 +85,9 @@ test {
 				'com.bear.inventario.InventarioApplication.class'
 		]
 	}
+}
+
+cucumber {
+	main = "io.cucumber.core.cli.Main"
+	glue = "classpath:com.bear.inventario.stepdefinitions"
 }
