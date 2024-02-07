@@ -1,8 +1,9 @@
 package com.bear.inventario;
 
-import com.bear.inventario.dto.category.CategoryDTO;
 import com.bear.inventario.dto.product.CreateProductDTO;
 import com.bear.inventario.dto.product.ProductDTO;
+import com.bear.inventario.dto.product.UpdateProductDTO;
+import com.bear.inventario.exception.ProductNotFoundException;
 import com.bear.inventario.mapper.ProductMapper;
 import com.bear.inventario.model.Product;
 import com.bear.inventario.repository.ProductRepository;
@@ -17,13 +18,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -110,7 +108,7 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Service ProductService should save a new category when valid data is provided")
+    @DisplayName("Service ProductService should save a new product when valid data is provided")
     void saveProductServiceTest() {
         // Arrange
         CreateProductDTO createData = new CreateProductDTO();
@@ -147,6 +145,77 @@ class ProductServiceTest {
         assertEquals(product.getDescripcion(), savedProductDTO.getDescripcion());
         assertEquals(product.getPrecio(), savedProductDTO.getPrecio());
         assertEquals(product.getCantidad(), savedProductDTO.getCantidad());
+    }
+
+    @Test
+    @DisplayName("Service ProductService should update a product")
+    void updateProductServiceTest() throws ProductNotFoundException {
+        // Arrange
+        long productId = 1L;
+        UpdateProductDTO updateData = new UpdateProductDTO();
+        Product product = new Product();
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+
+        // Act
+        productService.update(productId, updateData);
+
+        // Verify
+        verify(productRepository, times(1)).findById(productId);
+        verify(productMapper, times(1)).update(product, updateData);
+        verify(productRepository, times(1)).save(product);
+        verifyNoMoreInteractions(productRepository, productMapper);
+    }
+
+    @Test
+    @DisplayName("Service ProductService exception should work if a product is not found")
+    void UpdateProductServiceNotFoundExceptionTest() {
+        // Arrange
+        long productId = 1L;
+        UpdateProductDTO updateData = new UpdateProductDTO();
+
+        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(ProductNotFoundException.class, () -> productService.update(productId, updateData));
+
+        // Verify
+        verify(productRepository, times(1)).findById(productId);
+        verifyNoMoreInteractions(productRepository, productMapper);
+    }
+
+    @Test
+    @DisplayName("Service ProductService should delete a product")
+    void deleteProductServiceTest() throws ProductNotFoundException {
+        // Arrange
+        long productId = 1L;
+        Product product = new Product();
+
+        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+
+        // Act
+        productService.delete(productId);
+
+        // Verify
+        verify(productRepository, times(1)).findById(productId);
+        verify(productRepository, times(1)).deleteById(productId);
+        verifyNoMoreInteractions(productRepository);
+    }
+
+    @Test
+    @DisplayName("Service ProductService exception should work if a product is not found to delete")
+    void deleteProductServiceNotFoundExceptionTest() {
+        // Arrange
+        long productId = 1L;
+
+        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(ProductNotFoundException.class, () -> productService.delete(productId));
+
+        // Verify
+        verify(productRepository, times(1)).findById(productId);
+        verifyNoMoreInteractions(productRepository);
     }
 
 }
