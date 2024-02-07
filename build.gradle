@@ -66,6 +66,8 @@ jacocoTestReport {
 			        'com/bear/inventario/dto/**',
 					'com/bear/inventario/model/**',
 					'com/bear/inventario/mapper/**',
+					'com/bear/inventario/exception/**',
+					'com/bear/inventario/config/**',
 					'com/bear/inventario/InventarioApplication.class'
 			]
 			)
@@ -80,6 +82,8 @@ test {
 				'com.bear.inventario.dto.*',
 				'com.bear.inventario.model.*',
 				'com.bear.inventario.mapper.*',
+				'com.bear.inventario.exception.*',
+				'com.bear.inventario.config.*',
 				'com.bear.inventario.InventarioApplication.class'
 		]
 	}
